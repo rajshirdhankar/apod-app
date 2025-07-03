@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Home from "./pages/Home";
-
+import Favourites from "./pages/Favourites";
+import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function APITest() {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
@@ -36,10 +38,14 @@ function APITest() {
 
 function App() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Home />
-      <APITest />
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/favourites" element={<Favourites />} />
+        <Route path="/apitest" element={<APITest />} />
+      </Routes>
+    </Router>
   );
 }
 
