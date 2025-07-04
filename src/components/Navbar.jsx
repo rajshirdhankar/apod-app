@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,26 +7,28 @@ import { Button } from "@/components/ui/button";
 function Navbar() {
   const { theme, setTheme } = useTheme();
 
+  const linkClass = ({ isActive }) =>
+    isActive
+      ? "text-blue-600 dark:text-blue-400 font-semibold border-b-2 border-blue-600 pb-1"
+      : "text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400";
+
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md px-6 py-4 mb-4">
       <div className="max-w-4xl mx-auto flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
+        <NavLink
+          to="/"
+          className="text-xl font-bold text-blue-600 dark:text-blue-400"
+        >
           NASA APOD
-        </Link>
+        </NavLink>
 
         <div className="flex items-center gap-4">
-          <Link
-            to="/"
-            className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400"
-          >
+          <NavLink to="/" className={linkClass} end>
             Home
-          </Link>
-          <Link
-            to="/favourites"
-            className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400"
-          >
+          </NavLink>
+          <NavLink to="/favourites" className={linkClass}>
             Favourites
-          </Link>
+          </NavLink>
 
           {/* Theme Toggle Button */}
           <Button
@@ -34,7 +36,11 @@ function Navbar() {
             className="cursor-pointer"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
           </Button>
         </div>
       </div>

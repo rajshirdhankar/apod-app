@@ -131,12 +131,14 @@ const Home = () => {
 
             <div className="flex gap-2 pt-2">
               <Button
-                onClick={() => toggleFavourite(data)}
-                className="cursor-pointer hover:opacity-90"
-                variant={isFavourite(data) ? "destructive" : "default"}
-              >
-                {isFavourite(data) ? " Remove from Favourites" : " Add to Favourites"}
-              </Button>
+  onClick={() => toggleFavourite(data)}
+  className={`cursor-pointer border ${
+    isFavourite(data) ? "bg-red-600 text-white hover:bg-red-700" : "bg-blue-600 text-white hover:bg-blue-700"
+  }`}
+>
+  {isFavourite(data) ? "Remove from Favourites" : "Add to Favourites"}
+</Button>
+
               <Button
                 onClick={downloadImage}
                 className="cursor-pointer hover:opacity-90"
