@@ -14,23 +14,29 @@ function Navbar() {
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md px-6 py-4 mb-4">
-      <div className="max-w-4xl mx-auto flex justify-between items-center">
-        <NavLink
-          to="/"
-          className="text-xl font-bold text-blue-600 dark:text-blue-400"
-        >
-          NASA APOD
-        </NavLink>
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+        
+        {/* Title and Intro */}
+        <div className="max-w-xl">
+          <NavLink
+            to="/"
+            className="text-2xl font-bold text-blue-600 dark:text-blue-400 block mb-1"
+          >
+            NASA APOD
+          </NavLink>
+          <p className="text-sm text-gray-700 dark:text-gray-400 leading-snug">
+            Discover a new window into the universe — view NASA's Astronomy Picture of the Day from any date since June 16, 1995.
+          </p>
+        </div>
 
-        <div className="flex items-center gap-4">
+        {/* Navigation Links + Theme Toggle */}
+        <div className="flex items-center gap-4 mt-2 md:mt-0">
           <NavLink to="/" className={linkClass} end>
             Home
           </NavLink>
           <NavLink to="/favourites" className={linkClass}>
             Favourites
           </NavLink>
-
-          {/* Theme Toggle Button */}
           <Button
             variant="ghost"
             className="cursor-pointer"

@@ -9,14 +9,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Calendar } from "lucide-react";
 
-// Custom calendar input with icon
+// 📅 Custom input for calendar
 const CustomDateInput = React.forwardRef(({ value, onClick }, ref) => (
   <button
     onClick={onClick}
     ref={ref}
-    className="flex items-center border rounded px-3 py-2 text-sm gap-2 cursor-pointer hover:opacity-90"
+    className="flex items-center border rounded px-4 py-2 text-sm gap-2 cursor-pointer hover:opacity-90"
   >
-    <Calendar size={18} className="text-gray-500" />
+    <Calendar size={18} className="text-blue-600" />
     <span>{value}</span>
   </button>
 ));
@@ -79,39 +79,45 @@ const Home = () => {
 
   return (
     <div className="p-4">
-      {/* Calendar & Nav */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-        <DatePicker
-          selected={date}
-          onChange={(d) => setDate(d)}
-          minDate={new Date(1995, 5, 16)} // June 16, 1995
-          maxDate={new Date()}
-          dateFormat="dd-MM-yyyy"
-          customInput={<CustomDateInput />}
-          showYearDropdown
-          showMonthDropdown
-          dropdownMode="select"
-        />
-        <div className="flex gap-2">
-          <Button onClick={() => changeDate(-1)} className="cursor-pointer">
-            ← Prev
-          </Button>
-          <Button onClick={() => changeDate(1)} className="cursor-pointer">
-            Next →
-          </Button>
+      {/* Calendar + Info + Navigation */}
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-6">
+        <div className="flex flex-col md:flex-row items-center gap-4">
+          <span className="text-base font-medium text-gray-700 dark:text-gray-300">
+            Select any date from <span className="font-semibold">June 16, 1995</span>
+          </span>
+          <DatePicker
+            selected={date}
+            onChange={(d) => setDate(d)}
+            minDate={new Date(1995, 5, 16)} // June 16, 1995
+            maxDate={new Date()}
+            dateFormat="dd-MM-yyyy"
+            customInput={<CustomDateInput />}
+            showYearDropdown
+            showMonthDropdown
+            dropdownMode="select"
+          />
+        </div>
+
+        <div className="flex gap-4">
+          <Button onClick={() => changeDate(-1)}>← Prev</Button>
+          <Button onClick={() => changeDate(1)}>Next →</Button>
         </div>
       </div>
 
-      {/* APOD Card */}
+      {/* APOD Content */}
       {isLoading ? (
         <LoadingSkeleton />
       ) : data?.error ? (
-        <p className="text-center text-red-500 mt-4"> Something went wrong. Try another date.</p>
+        <p className="text-center text-red-500 mt-4">
+          Something went wrong. Please try another date.
+        </p>
       ) : (
         <Card className="max-w-4xl mx-auto">
           <CardContent className="p-4 space-y-4">
             <h2 className="text-xl font-semibold">{data.title}</h2>
-            <p className="text-sm text-muted-foreground">{formatDisplayDate(data.date)}</p>
+            <p className="text-sm text-muted-foreground">
+              {formatDisplayDate(data.date)}
+            </p>
 
             {data.media_type === "image" ? (
               <img
@@ -131,20 +137,20 @@ const Home = () => {
 
             <div className="flex gap-2 pt-2">
               <Button
-  onClick={() => toggleFavourite(data)}
-  className={`cursor-pointer border ${
-    isFavourite(data) ? "bg-red-600 text-white hover:bg-red-700" : "bg-blue-600 text-white hover:bg-blue-700"
-  }`}
->
-  {isFavourite(data) ? "Remove from Favourites" : "Add to Favourites"}
-</Button>
-
+                onClick={() => toggleFavourite(data)}
+                className="cursor-pointer hover:opacity-90"
+                variant={isFavourite(data) ? "destructive" : "default"}
+              >
+                {isFavourite(data)
+                  ? "Remove from Favourites"
+                  : "Add to Favourites"}
+              </Button>
               <Button
                 onClick={downloadImage}
                 className="cursor-pointer hover:opacity-90"
                 variant="outline"
               >
-                 Download
+                Download
               </Button>
             </div>
           </CardContent>
