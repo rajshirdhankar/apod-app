@@ -135,7 +135,7 @@ const Home = () => {
                 className="cursor-pointer hover:opacity-90"
                 variant={isFavourite(data) ? "destructive" : "default"}
               >
-                {isFavourite(data) ? " Unfavourite" : " Add to Favourites"}
+                {isFavourite(data) ? " Remove from Favourites" : " Add to Favourites"}
               </Button>
               <Button
                 onClick={downloadImage}
